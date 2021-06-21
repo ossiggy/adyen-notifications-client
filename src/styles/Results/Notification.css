@@ -4,8 +4,7 @@
 
 .notiContainer {
   width: 75%;
-  margin: auto;
-  margin-top: 10px;
+  margin-left: auto;
 }
 
 .json {
@@ -14,6 +13,7 @@
   padding: 5px;
 }
 
-.row {
+.noti-row {
   align-items: center;
+  margin-top: 10px !important;
 }

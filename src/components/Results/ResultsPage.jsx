@@ -6,15 +6,20 @@ import Notification from "./Notification";
 const ResultsPage = props => {
   const [data] = useGetNotifications(props.pspReference);
   console.log(data);
+  
+  const display = data ? data.map(item => {
+      return (
+        <Row className="noti-row">
+          <Notification {...item}></Notification>
+        </Row>
+      )
+    })
+    :
+    "";
+
   return(
     <Container>
-      {data.map(item => {
-        return (
-          <Row>
-            <Notification {...item}></Notification>
-          </Row>
-        )
-      })}
+      {display}
     </Container>
   )
 };
