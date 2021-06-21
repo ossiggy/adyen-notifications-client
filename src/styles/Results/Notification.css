@@ -1,0 +1,19 @@
+.notiButton {
+  width: 100%;
+}
+
+.notiContainer {
+  width: 75%;
+  margin: auto;
+  margin-top: 10px;
+}
+
+.json {
+  color: lime;
+  background-color: black;
+  padding: 5px;
+}
+
+.row {
+  align-items: center;
+}
