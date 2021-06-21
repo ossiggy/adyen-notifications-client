@@ -4,7 +4,7 @@ import useGetNotifications from "../../hooks/useGetNotifications";
 import Notification from "./Notification";
 
 const ResultsPage = props => {
-  const [data, loading, isError] = useGetNotifications(props.pspReference);
+  const [data] = useGetNotifications(props.pspReference);
   console.log(data);
   return(
     <Container>
