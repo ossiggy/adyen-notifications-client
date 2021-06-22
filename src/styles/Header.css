@@ -5,12 +5,3 @@
 #adyen-logo {
   padding-left: 10px;
 }
-
-#recent-searches{
-  margin-left: auto;
-  padding-right: 10px;
-}
-
-.dropdown-item:hover{
-  background-color: lightgray !important;
-}

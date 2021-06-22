@@ -25,12 +25,11 @@ const App = () => {
   };
 
   const updateRecent = pspReference => {
-    console.log('called', pspReference)
     if (!pspReference) {
       return
     }
 
-    const newRecent = JSON.stringify([...new Set([pspReference, ...recent])]);
+    const newRecent = JSON.stringify([...new Set([pspReference, ...recent])].slice(0, 15));
     localStorage.setItem("recentPsp", newRecent);
 
     setNotification(prevState => ({
@@ -43,9 +42,9 @@ const App = () => {
 
   return (
     <div id="app">
-      <Header recent={recent} setRecent={updateRecent} />
+      <Header />
       <Container id="app-container">
-        <SearchBar input={input} setInput={updateState} setRecent={updateRecent} />
+        <SearchBar input={input} setInput={updateState} recent={recent} setRecent={updateRecent} />
         <ResultsPage pspReference={query} />
       </Container>
     </div>
