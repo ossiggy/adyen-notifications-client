@@ -8,9 +8,10 @@ import "../../styles/Results/ResultsPage.css"
 const ResultsPage = props => {
   const [data] = useGetNotifications(props.pspReference);
 
-  let display = data ? data.map(item => {
+  let display = data ? data.map((item, i) => {
+    const key = `${item.pspReference.split('.')[0]}-${i}`;
     return (
-      <Row className="noti-row" key={item.pspReference}>
+      <Row className="noti-row" key={key}>
         <Notification item={item}></Notification>
       </Row>
     )
