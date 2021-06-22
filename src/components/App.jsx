@@ -1,16 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/App.css";
 import { Container } from "reactstrap";
 import Header from "./Header";
-import SearchPage from "./SearchPage";
+import SearchBar from "./SearchBar";
+import ResultsPage from "./Results/ResultsPage";
 import "../styles/App.css"
 
 const App = () => {
+  const [notification, setNotification] = useState({
+    query: '',
+    input: '',
+    rawRecent: localStorage.getItem("recentPsp") || []
+  });
+
+  const { query, input, rawRecent } = notification;
+
+  const recent = JSON.parse(rawRecent);
+
+  const updateState = (name, value) => {
+    setNotification(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const updateRecent = pspReference => {
+    console.log('called', pspReference)
+    if (!pspReference) {
+      return
+    }
+    setNotification({
+      query: pspReference,
+      input: pspReference,
+      rawRecent: JSON.stringify([...new Set([pspReference, ...recent])])
+    })
+    console.log(rawRecent);
+    localStorage.setItem("recentPsp", rawRecent);
+  }
+
   return (
     <div id="app">
-      <Header />
+      <Header recent={recent} setRecent={updateRecent} />
       <Container id="app-container">
-        <SearchPage />
+        <SearchBar input={input} setInput={updateState} setRecent={updateRecent} />
+        <ResultsPage pspReference={query} />
       </Container>
     </div>
   );

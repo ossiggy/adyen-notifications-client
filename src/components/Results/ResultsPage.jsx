@@ -3,10 +3,12 @@ import { Container, Row } from "reactstrap";
 import useGetNotifications from "../../hooks/useGetNotifications";
 import Notification from "./Notification";
 
+import "../../styles/Results/ResultsPage.css"
+
 const ResultsPage = props => {
   const [data] = useGetNotifications(props.pspReference);
 
-  let display = data ? data.map((item, i) => {
+  let display = data ? data.map(item => {
     return (
       <Row className="noti-row" key={item.pspReference}>
         <Notification item={item}></Notification>
@@ -26,6 +28,7 @@ const ResultsPage = props => {
 
   return (
     <Container>
+      <hr />
       {display}
     </Container>
   )

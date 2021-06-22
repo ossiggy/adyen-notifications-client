@@ -22,7 +22,7 @@ const Notification = ({ item }) => {
 
   return (
     <div className="notiContainer">
-      <Button className="notiButton" color="primary" onClick={() => handleClick()}>{item.pspReference}: {item.eventCode}</Button>
+      <Button className="notiButton" color="success" onClick={() => handleClick()}>{item.pspReference}: {item.eventCode}</Button>
       {details}
     </div>
   )
