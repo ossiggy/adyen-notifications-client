@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div id="app">
       <Header />
-      <Container>
+      <Container id="app-container">
         <SearchPage />
       </Container>
     </div>
