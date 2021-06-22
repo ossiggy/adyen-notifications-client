@@ -10,7 +10,7 @@ const App = () => {
   const [notification, setNotification] = useState({
     query: '',
     input: '',
-    rawRecent: localStorage.getItem("recentPsp") || []
+    rawRecent: localStorage.getItem("recentPsp") || "[]"
   });
 
   const { query, input, rawRecent } = notification;
@@ -29,13 +29,16 @@ const App = () => {
     if (!pspReference) {
       return
     }
-    setNotification({
+
+    const newRecent = JSON.stringify([...new Set([pspReference, ...recent])]);
+    localStorage.setItem("recentPsp", newRecent);
+
+    setNotification(prevState => ({
+      ...prevState,
       query: pspReference,
       input: pspReference,
-      rawRecent: JSON.stringify([...new Set([pspReference, ...recent])])
-    })
-    console.log(rawRecent);
-    localStorage.setItem("recentPsp", rawRecent);
+      rawRecent: newRecent
+    }));
   }
 
   return (
