@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Container, Button } from "reactstrap";
 import "../../styles/Results/Notification.css"
 
-const Notification = props => {
+const Notification = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = () => {
@@ -13,7 +13,7 @@ const Notification = props => {
     <Container className="json">
       <pre className="json-code">
         <code>
-          {JSON.stringify(JSON.parse(props.body), null, 2)}
+          {JSON.stringify(JSON.parse(item.body), null, 2)}
         </code>
       </pre>
     </Container>
@@ -22,7 +22,7 @@ const Notification = props => {
 
   return (
     <div className="notiContainer">
-      <Button className="notiButton" color="primary" onClick={() => handleClick()}>{props.pspReference}: {props.eventCode}</Button>
+      <Button className="notiButton" color="primary" onClick={() => handleClick()}>{item.pspReference}: {item.eventCode}</Button>
       {details}
     </div>
   )

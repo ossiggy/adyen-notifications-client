@@ -10,8 +10,6 @@ const SearchPage = () => {
     setInput(e.target.value);
   };
 
-  console.log(input, pspReference);
-
   return (
     <Container>
       <InputGroup>

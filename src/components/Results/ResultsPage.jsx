@@ -5,15 +5,14 @@ import Notification from "./Notification";
 
 const ResultsPage = props => {
   const [data] = useGetNotifications(props.pspReference);
-  console.log(data);
-  
-  let display = data ? data.map(item => {
-      return (
-        <Row className="noti-row">
-          <Notification {...item}></Notification>
-        </Row>
-      )
-    })
+
+  let display = data ? data.map((item, i) => {
+    return (
+      <Row className="noti-row" key={item.pspReference}>
+        <Notification item={item}></Notification>
+      </Row>
+    )
+  })
     :
     "";
 
@@ -25,7 +24,7 @@ const ResultsPage = props => {
     )
   }
 
-  return(
+  return (
     <Container>
       {display}
     </Container>
