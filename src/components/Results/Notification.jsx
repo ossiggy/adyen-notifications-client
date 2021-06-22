@@ -9,16 +9,16 @@ const Notification = props => {
     setIsOpen(!isOpen);
   }
 
-  const details =  isOpen ? (
+  const details = isOpen ? (
     <Container className="json">
-      <pre>
+      <pre className="json-code">
         <code>
           {JSON.stringify(JSON.parse(props.body), null, 2)}
         </code>
       </pre>
     </Container>
   )
-  : "";
+    : "";
 
   return (
     <div className="notiContainer">
