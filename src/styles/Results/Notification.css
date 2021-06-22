@@ -17,3 +17,8 @@
   align-items: center;
   margin-top: 10px !important;
 }
+
+#no-results {
+  width: 100%;
+  text-align: center;
+}
