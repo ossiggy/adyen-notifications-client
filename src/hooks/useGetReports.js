@@ -1,35 +1,35 @@
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config";
 
-const useGetReports = params => {
+const useGetReports = (path, token, query) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const path = params.path.join("/");
-  const query = params.query ? `?${params.query}` : '';
+  const queryString = query ? `?${query}` : '';
 
   useEffect(() => {
     const getReports = async () => {
       setLoading(true);
       setIsError(false);
-      if (reportInfo) {
+      if (path) {
         try {
-          const response = await fetch(`${API_BASE_URL}/${path}${query}`, {
+          const response = await fetch(`${API_BASE_URL}/reports/${path}${queryString}`, {
             headers: {
-              Authorization: `Bearer ${token}`
+              Authorization: `Bearer ${token}`,
+              'Content-type': 'application/json'
             }
           });
           const reports = await response.json();
           setData(reports);
         } catch (err) {
-          return setIsError(true);
+          setIsError(true);
         }
       }
-      return setLoading(false);
+      setLoading(false);
     }
     getReports();
-  }, [params])
+  }, [path, query, queryString, token])
 
   return [data, loading, isError];
 };

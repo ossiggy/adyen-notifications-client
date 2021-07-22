@@ -2,3 +2,12 @@
   height: 100%;
   padding-bottom: 20px;
 }
+
+.display-3,
+.lead {
+  text-align: center;
+}
+
+.report-row {
+  margin-bottom: 20px;
+}

@@ -10,28 +10,26 @@ import "../styles/App.css"
 
 const App = () => {
   const [modal, setModal] = useState(false);
-  const [userId, setUserId] = useState(null);
+  const [user, setUser] = useState(null);
   
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem('user'));
-    console.log(userInfo)
-    if (userInfo.userId && userInfo.authToken) {
-      setUserId(userInfo.userId)
+    if (userInfo && userInfo.userId && userInfo.authToken) {
+      setUser(userInfo)
     } 
   }, []);
 
-  console.log(userId)
   const toggle = () => setModal(!modal);
 
-  let display = <NotificationsPage toggle={toggle} modal={modal} setUserId={setUserId} />
+  let display = <NotificationsPage toggle={toggle} modal={modal} setUser={setUser} />
 
-  if (userId) {
-    display = <ReportsPage />
-  }
+  if (user) {
+    display = <ReportsPage user={user} />;
+  };
 
   return (
     <div id="app">
-      <Header toggle={toggle} userId={userId}/>
+      <Header toggle={toggle} user={user}/>
       <Container id="app-container">
         {display}
       </Container>

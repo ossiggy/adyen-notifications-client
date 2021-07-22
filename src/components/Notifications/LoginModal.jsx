@@ -11,7 +11,10 @@ import {
 import { API_BASE_URL } from "../../config";
 
 const LoginModal = ({ toggle, modal, setUser }) => {
-  const [login, setLogin] = useState({});
+  const [login, setLogin] = useState({
+    username: '',
+    password: ''
+  });
   const [error, setError] = useState(null);
 
   const handleLoginChange = (e, name) => {
