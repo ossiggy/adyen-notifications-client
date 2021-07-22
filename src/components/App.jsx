@@ -1,51 +1,39 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/App.css";
-import { Container } from "reactstrap";
+import { 
+  Container,
+} from "reactstrap";
 import Header from "./Header";
-import SearchBar from "./SearchBar";
-import ResultsPage from "./Results/ResultsPage";
+import ReportsPage from "./Reports/ReportsPage";
+import NotificationsPage from "./Notifications/NotificationsPage";
 import "../styles/App.css"
 
 const App = () => {
-  const [notification, setNotification] = useState({
-    query: '',
-    input: '',
-    rawRecent: localStorage.getItem("recentPsp") || "[]"
-  });
+  const [modal, setModal] = useState(false);
+  const [userId, setUserId] = useState(null);
+  
+  useEffect(() => {
+    const userInfo = JSON.parse(localStorage.getItem('user'));
+    console.log(userInfo)
+    if (userInfo.userId && userInfo.authToken) {
+      setUserId(userInfo.userId)
+    } 
+  }, []);
 
-  const { query, input, rawRecent } = notification;
+  console.log(userId)
+  const toggle = () => setModal(!modal);
 
-  const recent = JSON.parse(rawRecent);
+  let display = <NotificationsPage toggle={toggle} modal={modal} setUserId={setUserId} />
 
-  const updateState = (name, value) => {
-    setNotification(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const updateRecent = pspReference => {
-    if (!pspReference) {
-      return
-    }
-
-    const newRecent = JSON.stringify([...new Set([pspReference, ...recent])].slice(0, 15));
-    localStorage.setItem("recentPsp", newRecent);
-
-    setNotification(prevState => ({
-      ...prevState,
-      query: pspReference,
-      input: pspReference,
-      rawRecent: newRecent
-    }));
+  if (userId) {
+    display = <ReportsPage />
   }
 
   return (
     <div id="app">
-      <Header />
+      <Header toggle={toggle} userId={userId}/>
       <Container id="app-container">
-        <SearchBar input={input} setInput={updateState} recent={recent} setRecent={updateRecent} />
-        <ResultsPage pspReference={query} />
+        {display}
       </Container>
     </div>
   );

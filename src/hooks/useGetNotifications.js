@@ -12,7 +12,7 @@ const useGetNotifications = pspReference => {
       setIsError(false);
       if (pspReference) {
         try {
-          const response = await fetch(`${API_BASE_URL}/${pspReference}`);
+          const response = await fetch(`${API_BASE_URL}/notifications/${pspReference}`);
           const notifications = await response.json();
           setData(notifications);
         } catch (err) {

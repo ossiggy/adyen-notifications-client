@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Button } from "reactstrap";
-import "../../styles/Results/Notification.css"
+import "../../../styles/Results/Notification.css"
 
 const Notification = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);

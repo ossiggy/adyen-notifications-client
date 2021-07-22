@@ -12,7 +12,7 @@ import {
   InputGroupButtonDropdown
 } from "reactstrap";
 
-import "../styles/SearchBar.css"
+import "../../styles/SearchBar.css"
 
 const SearchBar = ({ input, recent, setInput, setRecent }) => {
   const [isOpen, setIsOpen] = useState(false);

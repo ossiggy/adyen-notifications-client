@@ -1,9 +1,9 @@
 import React from "react";
 import { Container, Row } from "reactstrap";
-import useGetNotifications from "../../hooks/useGetNotifications";
+import useGetNotifications from "../../../hooks/useGetNotifications";
 import Notification from "./Notification";
 
-import "../../styles/Results/ResultsPage.css"
+import "../../../styles/Results/ResultsPage.css"
 
 const ResultsPage = props => {
   const [data] = useGetNotifications(props.pspReference);
@@ -12,7 +12,7 @@ const ResultsPage = props => {
     const key = `${item.pspReference.split('.')[0]}-${i}`;
     return (
       <Row className="noti-row" key={key}>
-        <Notification item={item}></Notification>
+        <Notification item={item}/>
       </Row>
     )
   })
