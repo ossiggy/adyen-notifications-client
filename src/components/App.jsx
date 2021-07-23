@@ -21,6 +21,11 @@ const App = () => {
 
   const toggle = () => setModal(!modal);
 
+  const logout = () => {
+    localStorage.clear('user');
+    setUser(null);
+  };
+
   let display = <NotificationsPage toggle={toggle} modal={modal} setUser={setUser} />
 
   if (user) {
@@ -29,7 +34,7 @@ const App = () => {
 
   return (
     <div id="app">
-      <Header toggle={toggle} user={user}/>
+      <Header toggle={toggle} user={user} logout={logout}/>
       <Container id="app-container">
         {display}
       </Container>

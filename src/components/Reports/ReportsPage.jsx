@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import Merchants from './Merchants';
-import Reports from './Reports';
+import ReportList from './ReportList';
 
 const ReportsPage = ({ user }) => {
-  console.log('render')
-  const [page, setPage] = useState(null);
+  // TODO: Pagination
+  // const [page, setPage] = useState(null);
   const [params, setParams] = useState({
     userId: user.userId,
     merchant: '',
@@ -21,12 +21,11 @@ const ReportsPage = ({ user }) => {
 
   const { userId, merchant, reportId, token } = params;
   const path = [userId, merchant, reportId].filter(Boolean).join("/");
-  console.log(path);
 
   let display = <Merchants path={path} token={token} updateParams={updateParams} />; 
  
   if (user && merchant) {
-    display = <Reports path={path} token={token} updateParams={updateParams}/>
+    display = <ReportList path={path} token={token} updateParams={updateParams}/>
   }
 
   return(

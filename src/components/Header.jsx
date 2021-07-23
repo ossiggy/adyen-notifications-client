@@ -8,7 +8,13 @@ import {
 import "../styles/Header.css";
 import AdyenLogo from "../assets/adyen-header-logo-green.svg";
 
-const Header = ({ toggle }) => {
+const Header = ({ toggle, user, logout }) => {
+
+  let userButton = <Button onClick={toggle} color="success">Log In</Button>;
+
+  if (user) {
+    userButton = <Button onClick={logout} color="secondary">Log Out</Button>;
+  }
 
   return (
     <div id="header">
@@ -17,7 +23,7 @@ const Header = ({ toggle }) => {
           <img width="150px" height="auto" src={AdyenLogo} alt="logo" />
         </NavbarBrand>
         <div id="login-button">
-          <Button onClick={toggle} color="success">Log In</Button>
+          {userButton}
         </div>
       </Navbar>
     </div>
