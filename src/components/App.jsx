@@ -4,7 +4,7 @@ import {
   Container,
 } from "reactstrap";
 import Header from "./Header";
-import ReportsPage from "./Reports/ReportsPage";
+import ReportsDashboard from "./Reports/ReportsDashboard";
 import NotificationsPage from "./Notifications/NotificationsPage";
 import "../styles/App.css"
 
@@ -29,7 +29,7 @@ const App = () => {
   let display = <NotificationsPage toggle={toggle} modal={modal} setUser={setUser} />
 
   if (user) {
-    display = <ReportsPage user={user} />;
+    display = <ReportsDashboard user={user} />;
   };
 
   return (

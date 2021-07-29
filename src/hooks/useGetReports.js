@@ -23,6 +23,7 @@ const useGetReports = (path, token, query) => {
           const reports = await response.json();
           setData(reports);
         } catch (err) {
+          console.log(err.status)
           setIsError(true);
         }
       }

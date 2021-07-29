@@ -11,7 +11,7 @@ const Report = ({ path, token }) => {
 
   const downloadReport = async id => {
     try {
-      const file = await fetch(`${API_BASE_URL}/reports/${path}/${id}`,
+      const file = await fetch(`${API_BASE_URL}/reports/${path}/download`,
       {
         headers: {
           Authorization: `Bearer ${token}`

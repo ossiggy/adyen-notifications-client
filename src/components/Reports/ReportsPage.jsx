@@ -1,38 +1,25 @@
-import React, { useState } from 'react';
-import Merchants from './Merchants';
+import { Container, Jumbotron, Button, Spinner } from 'reactstrap';
 import ReportList from './ReportList';
+import useGetReports from '../../hooks/useGetReports';
 
-const ReportsPage = ({ user }) => {
-  // TODO: Pagination
-  // const [page, setPage] = useState(null);
-  const [params, setParams] = useState({
-    userId: user.userId,
-    merchant: '',
-    reportId: '',
-    token: user.authToken
-  });
+const ReportsPage = ({ path, token, setMerchant }) => {
+  const [reportList, loading] = useGetReports(path, token);
 
-  const updateParams = (name, value) => {
-    setParams(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+  if(loading) {
+    return <Spinner color="success" />
   };
 
-  const { userId, merchant, reportId, token } = params;
-  const path = [userId, merchant, reportId].filter(Boolean).join("/");
-
-  let display = <Merchants path={path} token={token} updateParams={updateParams} />; 
- 
-  if (user && merchant) {
-    display = <ReportList path={path} token={token} updateParams={updateParams}/>
-  }
-
-  return(
-    <div id="reports-page">
-      {display}
-    </div>
-  );
+  return (
+    <Container>
+      <Jumbotron>
+        <h1 className="display-3">ReportList</h1>
+        <div className="button-container">
+          <Button onClick={() => setMerchant(null)}>Back</Button>
+        </div>
+      </Jumbotron>
+      {reportList && <ReportList reportList={reportList} path={path} token={token} /> }
+    </Container>
+  )
 };
 
 export default ReportsPage;

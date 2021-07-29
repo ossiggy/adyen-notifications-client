@@ -39,7 +39,7 @@ const LoginModal = ({ toggle, modal, setUser }) => {
       setUser(auth);
       toggle();
     } catch (err) {
-      console.error('status', err.statusCode);
+      console.error('status', err);
       setError('There was a problem logging you in.')
     };
   };
