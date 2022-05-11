@@ -1,45 +1,42 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "../styles/App.css";
-import { 
-  Container,
-} from "reactstrap";
+
 import Header from "./Header";
-import ReportsDashboard from "./Reports/ReportsDashboard";
-import NotificationsPage from "./Notifications/NotificationsPage";
-import "../styles/App.css"
+import { SearchBar, ResultsPage } from "./Notifications";
+import "../styles/App.css";
 
 const App = () => {
-  const [modal, setModal] = useState(false);
-  const [user, setUser] = useState(null);
-  
-  useEffect(() => {
-    const userInfo = JSON.parse(localStorage.getItem('user'));
-    if (userInfo && userInfo.userId && userInfo.authToken) {
-      setUser(userInfo)
-    } 
-  }, []);
+  const [rawRecent, setRawRecent] = useState(
+    localStorage.getItem("recentPsp") || "[]"
+  );
 
-  const toggle = () => setModal(!modal);
+  const recent = JSON.parse(rawRecent);
 
-  const logout = () => {
-    localStorage.clear('user');
-    setUser(null);
-  };
+  const updateRecent = (pspReference) => {
+    if (!pspReference) {
+      return;
+    }
 
-  let display = <NotificationsPage toggle={toggle} modal={modal} setUser={setUser} />
+    const newRecent = JSON.stringify(
+      [...new Set([pspReference, ...recent])].slice(0, 15)
+    );
+    localStorage.setItem("recentPsp", newRecent);
 
-  if (user) {
-    display = <ReportsDashboard user={user} />;
+    setRawRecent(newRecent);
   };
 
   return (
     <div id="app">
-      <Header toggle={toggle} user={user} logout={logout}/>
-      <Container id="app-container">
-        {display}
-      </Container>
+      <Header />
+      <Router>
+        <SearchBar recent={recent} updateRecent={updateRecent} />
+        <Routes>
+          <Route path="/:pspReference" element={<ResultsPage />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;
