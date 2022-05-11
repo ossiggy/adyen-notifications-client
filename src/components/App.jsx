@@ -1,54 +1,42 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import "../styles/App.css";
-import { Container } from "reactstrap";
+
 import Header from "./Header";
-import SearchBar from "./SearchBar";
-import ResultsPage from "./Results/ResultsPage";
-import "../styles/App.css"
+import { SearchBar, ResultsPage } from "./Notifications";
+import "../styles/App.css";
 
 const App = () => {
-  const [notification, setNotification] = useState({
-    query: '',
-    input: '',
-    rawRecent: localStorage.getItem("recentPsp") || "[]"
-  });
-
-  const { query, input, rawRecent } = notification;
+  const [rawRecent, setRawRecent] = useState(
+    localStorage.getItem("recentPsp") || "[]"
+  );
 
   const recent = JSON.parse(rawRecent);
 
-  const updateState = (name, value) => {
-    setNotification(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const updateRecent = pspReference => {
+  const updateRecent = (pspReference) => {
     if (!pspReference) {
-      return
+      return;
     }
 
-    const newRecent = JSON.stringify([...new Set([pspReference, ...recent])].slice(0, 15));
+    const newRecent = JSON.stringify(
+      [...new Set([pspReference, ...recent])].slice(0, 15)
+    );
     localStorage.setItem("recentPsp", newRecent);
 
-    setNotification(prevState => ({
-      ...prevState,
-      query: pspReference,
-      input: pspReference,
-      rawRecent: newRecent
-    }));
-  }
+    setRawRecent(newRecent);
+  };
 
   return (
     <div id="app">
       <Header />
-      <Container id="app-container">
-        <SearchBar input={input} setInput={updateState} recent={recent} setRecent={updateRecent} />
-        <ResultsPage pspReference={query} />
-      </Container>
+      <Router>
+        <SearchBar recent={recent} updateRecent={updateRecent} />
+        <Routes>
+          <Route path="/:pspReference" element={<ResultsPage />} />
+        </Routes>
+      </Router>
     </div>
   );
-}
+};
 
 export default App;

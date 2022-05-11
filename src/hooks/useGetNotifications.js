@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { API_BASE_URL } from "../config";
 
-const useGetNotifications = pspReference => {
+const useGetNotifications = (pspReference) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -12,7 +12,9 @@ const useGetNotifications = pspReference => {
       setIsError(false);
       if (pspReference) {
         try {
-          const response = await fetch(`${API_BASE_URL}/${pspReference}`);
+          const response = await fetch(
+            `${API_BASE_URL}/notifications/${pspReference}`
+          );
           const notifications = await response.json();
           setData(notifications);
         } catch (err) {
@@ -20,9 +22,9 @@ const useGetNotifications = pspReference => {
         }
       }
       return setLoading(false);
-    }
+    };
     getNotifications();
-  }, [pspReference])
+  }, [pspReference]);
 
   return [data, loading, isError];
 };
