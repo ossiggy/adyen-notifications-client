@@ -19,6 +19,8 @@ const Notification = ({ item }) => {
     ""
   );
 
+  const idToDisplay = item.pspReference ? item.pspReference : item.poiId;
+
   return (
     <div className="notiContainer">
       <Button
@@ -26,7 +28,7 @@ const Notification = ({ item }) => {
         color="success"
         onClick={() => handleClick()}
       >
-        {item.pspReference}: {item.eventCode}
+        {idToDisplay}: {item.eventCode}
       </Button>
       {details}
     </div>

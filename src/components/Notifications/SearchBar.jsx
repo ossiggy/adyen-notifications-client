@@ -22,7 +22,7 @@ const SearchBar = ({ recent, updateRecent }) => {
 
   useEffect(() => {
     if (pathname && pathname.length) {
-      const pspReference = pathname.replace(/[^A-Za-z0-9]/g, "");
+      const pspReference = pathname.replace(/[/]/g, "");
       setInput(pspReference);
     }
   }, [pathname]);

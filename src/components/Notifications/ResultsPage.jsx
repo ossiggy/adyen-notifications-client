@@ -8,17 +8,18 @@ import "../../styles/Results/ResultsPage.css";
 const ResultsPage = () => {
   const { pspReference } = useParams();
   const [data] = useGetNotifications(pspReference);
-
-  let display = data
-    ? data.map((item, i) => {
-        const key = `${item.pspReference.split(".")[0]}-${i}`;
-        return (
-          <Row className="noti-row" key={key}>
-            <Notification item={item} />
-          </Row>
-        );
-      })
-    : "";
+  console.log(data);
+  let display =
+    data && data.length
+      ? data.map((item, i) => {
+          const key = `${item._id}`;
+          return (
+            <Row className="noti-row" key={key}>
+              <Notification item={item} />
+            </Row>
+          );
+        })
+      : "";
 
   if (data && !data.length) {
     display = (
